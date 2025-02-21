@@ -1,0 +1,27 @@
+[gd_scene load_steps=4 format=3 uid="uid://b1836j53ddx2u"]
+
+[ext_resource type="Script" path="res://plasmasurge.gd" id="1_hrxgg"]
+[ext_resource type="Texture2D" uid="uid://pias47pgfh30" path="res://bulletcucang/370341509_7288269514550778_2846442397592192119_n (1).png" id="2_vr12i"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_m467c"]
+size = Vector2(13.5, 13)
+
+[node name="plasma" type="Area2D"]
+position = Vector2(120, 236)
+script = ExtResource("1_hrxgg")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(21, 21)
+shape = SubResource("RectangleShape2D_m467c")
+
+[node name="lifetime" type="Timer" parent="."]
+process_callback = 0
+wait_time = 0.7
+one_shot = true
+autostart = true
+
+[node name="bullet2" type="Sprite2D" parent="."]
+position = Vector2(20, 19)
+texture = ExtResource("2_vr12i")
+
+[connection signal="timeout" from="lifetime" to="." method="_on_lifetime_timeout"]

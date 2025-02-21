@@ -1,0 +1,26 @@
+[gd_scene load_steps=4 format=3 uid="uid://dpuit4t517rbq"]
+
+[ext_resource type="Script" path="res://playerprojectile.gd" id="1_tbhpy"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_m467c"]
+size = Vector2(59, 58)
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_nophd"]
+load_path = "res://.godot/imported/386861214_1005045890749353_4949471955186920185_n.png-6888aab300dc9c22cda66da02b72766f.ctex"
+
+[node name="simpleshot" type="Area2D"]
+script = ExtResource("1_tbhpy")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(19.5, 19)
+shape = SubResource("RectangleShape2D_m467c")
+
+[node name="bullet" type="Sprite2D" parent="."]
+position = Vector2(20.0625, 20.5625)
+scale = Vector2(0.275, 0.30286)
+texture = SubResource("CompressedTexture2D_nophd")
+
+[node name="lifetime" type="Timer" parent="."]
+one_shot = true
+
+[connection signal="timeout" from="lifetime" to="." method="_on_lifetime_timeout"]

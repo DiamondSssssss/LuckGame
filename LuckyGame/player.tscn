@@ -1,0 +1,137 @@
+[gd_scene load_steps=14 format=3 uid="uid://r1kwpicenwm4"]
+
+[ext_resource type="Script" path="res://player.gd" id="1_02yc4"]
+[ext_resource type="Texture2D" uid="uid://dhapel8nlfu1c" path="res://thangthoisao/387468020_101486393058619_6471520267679872535_n.png" id="2_kg2o2"]
+[ext_resource type="Script" path="res://weapon_changer.gd" id="3_y5l6x"]
+[ext_resource type="Script" path="res://ProgressBar.gd" id="4_qecbr"]
+[ext_resource type="PackedScene" uid="uid://bpx06rmfrtkkg" path="res://DAMBOSS.tscn" id="5_gpdxi"]
+[ext_resource type="Script" path="res://health.gd" id="6_klvbw"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xfnei"]
+atlas = ExtResource("2_kg2o2")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gxld7"]
+atlas = ExtResource("2_kg2o2")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ljakg"]
+atlas = ExtResource("2_kg2o2")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_65qv4"]
+atlas = ExtResource("2_kg2o2")
+region = Rect2(96, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_q23fj"]
+atlas = ExtResource("2_kg2o2")
+region = Rect2(128, 0, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_k6erx"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xfnei")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gxld7")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ljakg")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_65qv4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_q23fj")
+}],
+"loop": true,
+"name": &"run",
+"speed": 5.0
+}]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_w1srv"]
+radius = 12.0
+height = 28.0
+
+[node name="main" type="Node"]
+
+[node name="player" type="CharacterBody2D" parent="."]
+position = Vector2(112, 95)
+rotation = -1.0472
+script = ExtResource("1_02yc4")
+
+[node name="player" type="AnimatedSprite2D" parent="player"]
+position = Vector2(5.0493, -6.61805)
+rotation = 1.57079
+scale = Vector2(1, 1.625)
+sprite_frames = SubResource("SpriteFrames_k6erx")
+animation = &"run"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="player"]
+position = Vector2(-2.13396, -5.69616)
+rotation = -0.523598
+shape = SubResource("CapsuleShape2D_w1srv")
+
+[node name="Camera2D" type="Camera2D" parent="player"]
+position = Vector2(1.09807, -4.09808)
+
+[node name="dashcd" type="Timer" parent="player"]
+wait_time = 2.0
+one_shot = true
+
+[node name="gun_off_set" type="Marker2D" parent="player"]
+position = Vector2(12.6244, -6.13394)
+
+[node name="cooldown_timer" type="Timer" parent="player"]
+process_callback = 0
+wait_time = 0.5
+one_shot = true
+autostart = true
+
+[node name="weapon_changer" type="Node2D" parent="player"]
+position = Vector2(1.09807, -4.09808)
+script = ExtResource("3_y5l6x")
+
+[node name="ultimatecd" type="Timer" parent="player"]
+wait_time = 0.1
+autostart = true
+
+[node name="ProgressBar" type="Control" parent="player"]
+layout_mode = 3
+anchors_preset = 0
+offset_left = 26.2728
+offset_top = -144.495
+offset_right = 66.2728
+offset_bottom = -104.495
+
+[node name="ProgressBar" type="ProgressBar" parent="player/ProgressBar"]
+layout_mode = 0
+offset_left = 0.633961
+offset_top = 3.09808
+offset_right = 60.634
+offset_bottom = 30.0981
+rotation = 1.0472
+script = ExtResource("4_qecbr")
+
+[node name="boss" parent="." instance=ExtResource("5_gpdxi")]
+
+[node name="Control" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="playerhealth" type="ProgressBar" parent="Control"]
+layout_mode = 0
+offset_left = 3.0
+offset_top = -57.0
+offset_right = 233.0
+offset_bottom = -9.0
+script = ExtResource("6_klvbw")
+
+[connection signal="timeout" from="player/dashcd" to="player" method="_on_dashcd_timeout"]
+[connection signal="timeout" from="player/cooldown_timer" to="player/weapon_changer" method="_on_cooldown_timer_timeout"]
+[connection signal="timeout" from="player/ultimatecd" to="player/weapon_changer" method="_on_ultimatecd_timeout"]
+[connection signal="value_changed" from="player/ProgressBar/ProgressBar" to="player/ProgressBar/ProgressBar" method="_on_value_changed"]
+[connection signal="value_changed" from="Control/playerhealth" to="Control/playerhealth" method="_on_value_changed"]

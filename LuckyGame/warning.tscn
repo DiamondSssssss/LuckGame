@@ -1,0 +1,17 @@
+[gd_scene load_steps=3 format=3 uid="uid://bjjnjnqngsm30"]
+
+[ext_resource type="Texture2D" uid="uid://ch53mp3qqaaht" path="res://bulletcucang/ULTIMATE.png" id="1_k3ifg"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_1wm6o"]
+radius = 56.0089
+
+[node name="Area2D" type="Area2D"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(231, 81)
+shape = SubResource("CircleShape2D_1wm6o")
+
+[node name="Ultimate" type="Sprite2D" parent="."]
+position = Vector2(226, 71)
+scale = Vector2(4.25, 3.84375)
+texture = ExtResource("1_k3ifg")

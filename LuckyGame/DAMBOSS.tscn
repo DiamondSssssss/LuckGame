@@ -1,0 +1,72 @@
+[gd_scene load_steps=8 format=3 uid="uid://bpx06rmfrtkkg"]
+
+[ext_resource type="Script" path="res://damvinhung.gd" id="1_kc671"]
+[ext_resource type="Texture2D" uid="uid://hdu28kr3ypwo" path="res://damvinhung-removebg-preview.png" id="2_ip0xu"]
+[ext_resource type="Script" path="res://mauanhdam.gd" id="3_2v4sx"]
+[ext_resource type="Script" path="res://damagecount.gd" id="4_s3igt"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_dehtw"]
+size = Vector2(111.363, 96.1617)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_21jcc"]
+radius = 118.207
+
+[sub_resource type="LabelSettings" id="LabelSettings_70v7m"]
+
+[node name="anhdam" type="CharacterBody2D"]
+script = ExtResource("1_kc671")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(395, 194)
+scale = Vector2(1.4143, 1.34149)
+shape = SubResource("RectangleShape2D_dehtw")
+
+[node name="anhdam" type="Sprite2D" parent="."]
+position = Vector2(431, 189)
+texture = ExtResource("2_ip0xu")
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(399, 192)
+rotation = -1.0472
+shape = SubResource("CircleShape2D_21jcc")
+
+[node name="Control" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_left = 6.98351
+offset_top = 353.906
+offset_right = 46.9835
+offset_bottom = 393.906
+
+[node name="mauanhdam" type="ProgressBar" parent="Control"]
+layout_mode = 0
+offset_left = 193.016
+offset_top = -22.9057
+offset_right = 632.016
+offset_bottom = 25.0943
+max_value = 1000.0
+script = ExtResource("3_2v4sx")
+
+[node name="Label" type="Label" parent="Control"]
+layout_mode = 0
+offset_left = 80.0
+offset_top = -23.0
+offset_right = 195.0
+offset_bottom = 22.0
+text = "BOSS HEALTH"
+label_settings = SubResource("LabelSettings_70v7m")
+max_lines_visible = 2
+script = ExtResource("4_s3igt")
+
+[node name="Timer" type="Timer" parent="."]
+process_callback = 0
+wait_time = 2.0
+autostart = true
+
+[connection signal="area_entered" from="Area2D" to="." method="_on_area_2d_area_entered"]
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
+[connection signal="value_changed" from="Control/mauanhdam" to="Control/mauanhdam" method="_on_value_changed"]
+[connection signal="value_changed" from="Control/mauanhdam" to="Control/Label" method="_on_mauanhdam_value_changed"]
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

@@ -1,0 +1,118 @@
+[gd_scene load_steps=6 format=3 uid="uid://dyp0tj3p4oih4"]
+
+[ext_resource type="Script" path="res://projectile.gd" id="1_jx0gs"]
+[ext_resource type="Script" path="res://projectile3.gd" id="3_670xa"]
+[ext_resource type="Texture2D" uid="uid://3rdqowk723r8" path="res://bulletcucang/shotgunshot.png" id="3_uniea"]
+[ext_resource type="Script" path="res://projectile2.gd" id="4_vmlmw"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_m467c"]
+size = Vector2(29.3591, 22.9149)
+
+[node name="shotgun" type="Node2D"]
+position = Vector2(3.0625, 3.0625)
+scale = Vector2(0.123889, 0.128731)
+
+[node name="projectile" type="Area2D" parent="."]
+script = ExtResource("1_jx0gs")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="projectile"]
+position = Vector2(-0.504486, -0.485504)
+shape = SubResource("RectangleShape2D_m467c")
+
+[node name="lifetime" type="Timer" parent="projectile"]
+process_callback = 0
+wait_time = 0.2
+one_shot = true
+autostart = true
+
+[node name="Shotgunshot2" type="Sprite2D" parent="projectile"]
+position = Vector2(-0.504486, -0.485512)
+scale = Vector2(1.50897, 1.47102)
+texture = ExtResource("3_uniea")
+
+[node name="projectile3" type="Area2D" parent="."]
+rotation = -0.523599
+script = ExtResource("3_670xa")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="projectile3"]
+position = Vector2(6.87509, -17.5132)
+shape = SubResource("RectangleShape2D_m467c")
+
+[node name="lifetime" type="Timer" parent="projectile3"]
+process_callback = 0
+wait_time = 0.2
+one_shot = true
+autostart = true
+
+[node name="Shotgunshot" type="Sprite2D" parent="projectile3"]
+position = Vector2(2.10491, -20.2569)
+rotation = 0.523599
+scale = Vector2(1.81979, 1.36413)
+texture = ExtResource("3_uniea")
+
+[node name="projectile2" type="Area2D" parent="."]
+script = ExtResource("4_vmlmw")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="projectile2"]
+position = Vector2(0.643463, 14.9138)
+rotation = 0.523599
+shape = SubResource("RectangleShape2D_m467c")
+
+[node name="lifetime" type="Timer" parent="projectile2"]
+process_callback = 0
+wait_time = 0.2
+one_shot = true
+autostart = true
+
+[node name="Shotgunshot3" type="Sprite2D" parent="projectile2"]
+position = Vector2(-0.504484, 15.0508)
+scale = Vector2(1.50897, 1.47102)
+texture = ExtResource("3_uniea")
+
+[node name="projectile4" type="Area2D" parent="."]
+position = Vector2(16.0615, -23.3437)
+rotation = 0.513127
+script = ExtResource("4_vmlmw")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="projectile4"]
+position = Vector2(-6.13071, 26.1558)
+rotation = -0.523598
+shape = SubResource("RectangleShape2D_m467c")
+
+[node name="lifetime" type="Timer" parent="projectile4"]
+process_callback = 0
+wait_time = 0.2
+one_shot = true
+autostart = true
+
+[node name="Shotgunshot3" type="Sprite2D" parent="projectile4"]
+position = Vector2(-4.44757, 26.8066)
+rotation = -0.785397
+scale = Vector2(1.50897, 1.47102)
+texture = ExtResource("3_uniea")
+
+[node name="projectile5" type="Area2D" parent="."]
+position = Vector2(-0.504486, -8.25365)
+script = ExtResource("4_vmlmw")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="projectile5"]
+position = Vector2(-0.00450134, 15.5528)
+rotation = 0.523599
+shape = SubResource("RectangleShape2D_m467c")
+
+[node name="lifetime" type="Timer" parent="projectile5"]
+process_callback = 0
+wait_time = 0.2
+one_shot = true
+autostart = true
+
+[node name="Shotgunshot3" type="Sprite2D" parent="projectile5"]
+position = Vector2(-0.504484, 15.0508)
+scale = Vector2(1.50897, 1.47102)
+texture = ExtResource("3_uniea")
+
+[connection signal="timeout" from="projectile/lifetime" to="projectile" method="_on_lifetime_timeout"]
+[connection signal="timeout" from="projectile3/lifetime" to="projectile3" method="_on_lifetime_timeout"]
+[connection signal="timeout" from="projectile2/lifetime" to="projectile2" method="_on_lifetime_timeout"]
+[connection signal="timeout" from="projectile4/lifetime" to="projectile4" method="_on_lifetime_timeout"]
+[connection signal="timeout" from="projectile5/lifetime" to="projectile5" method="_on_lifetime_timeout"]

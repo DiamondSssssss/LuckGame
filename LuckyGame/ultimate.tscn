@@ -1,0 +1,26 @@
+[gd_scene load_steps=4 format=3 uid="uid://bwws0dq74wyc8"]
+
+[ext_resource type="Script" path="res://ulti.gd" id="1_xfm3b"]
+[ext_resource type="Texture2D" uid="uid://ch53mp3qqaaht" path="res://bulletcucang/ULTIMATE.png" id="2_ovnhr"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_t5oqh"]
+size = Vector2(170.75, 163)
+
+[node name="motnottram" type="Area2D"]
+script = ExtResource("1_xfm3b")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(109, 114)
+shape = SubResource("RectangleShape2D_t5oqh")
+
+[node name="Ultimate" type="Sprite2D" parent="."]
+position = Vector2(110, 107)
+scale = Vector2(6.75, 6.8125)
+texture = ExtResource("2_ovnhr")
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 1.5
+one_shot = true
+autostart = true
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
